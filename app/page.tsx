@@ -85,12 +85,13 @@ export default function Home() {
             Dare to ask them for content?
             </p>
             
-            <button 
-              className="bg-purple-600 hover:bg-purple-700 uppe text-white font-bold text-lg py-4 px-10 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.7)] transform hover:scale-105 cursor-pointer"
+            <Link 
+              href="/generate"
+              className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-lg py-4 px-10 rounded-full transition-all duration-300 hover:shadow-[0_0_15px_rgba(168,85,247,0.7)] transform hover:scale-105 cursor-pointer inline-block text-center"
               aria-label="Generate your star graph"
             >
               Generate Your Star Graph
-            </button>
+            </Link>
           </div>
           
           <div className="lg:w-1/2 flex justify-center">

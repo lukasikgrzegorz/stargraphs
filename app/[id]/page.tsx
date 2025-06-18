@@ -7,13 +7,13 @@ const supabase = createClient(
 )
 
 interface PageProps {
-  params: {
-    id: string
-  }
+  params: Promise<{ id: string }>
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default async function InfographicPage({ params }: PageProps) {
-  const { id } = params
+export default async function Page({ params, searchParams }: PageProps) {
+  const { id } = await params
+  const resolvedSearchParams = searchParams ? await searchParams : {}
 
   try {
     const { data: infographic, error } = await supabase
@@ -80,7 +80,7 @@ export default async function InfographicPage({ params }: PageProps) {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { id } = params
+  const { id } = await params
 
   try {
     const { data: infographic } = await supabase
@@ -108,5 +108,21 @@ export async function generateMetadata({ params }: PageProps) {
     return {
       title: 'Star Graphs - Infografiki filmowe'
     }
+  }
+}export async function generateStaticParams() {  try {    const { data: infographics } = await supabase
+      .from('infographics')
+      .select('id')
+      .eq('generation_status', 'READY')
+
+    if (!infographics) {
+      return []
+    }
+
+    return infographics.map((infographic) => ({
+      id: infographic.id
+    }))
+  } catch (error) {
+    console.error('Error generating static params:', error)
+    return []
   }
 }

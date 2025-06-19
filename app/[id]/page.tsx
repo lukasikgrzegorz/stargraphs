@@ -45,19 +45,6 @@ export default async function Page({ params, searchParams }: PageProps) {
       notFound()
     }
 
-    // Load template-specific CSS if it exists
-    let templateCSS = ''
-    if (infographic.template_id) {
-      const cssPath = path.join(process.cwd(), 'app', '[id]', `${infographic.template_id}.css`)
-      try {
-        if (fs.existsSync(cssPath)) {
-          templateCSS = fs.readFileSync(cssPath, 'utf8')
-        }
-      } catch (error) {
-        console.warn(`Could not load CSS for template ${infographic.template_id}:`, error)
-      }
-    }
-
     if (infographic.generation_status !== 'READY') {
       return (
         <div className="min-h-screen bg-gradient-to-b from-slate-900 to-black flex items-center justify-center">
@@ -75,9 +62,9 @@ export default async function Page({ params, searchParams }: PageProps) {
 
     return (
       <main className="min-h-screen bg-gradient-to-b from-slate-900 to-black">
-        {/* Inject template-specific CSS */}
-        {templateCSS && (
-          <style dangerouslySetInnerHTML={{ __html: templateCSS }} />
+        {/* Load template-specific CSS if template_id exists */}
+        {infographic.template_id && (
+          <link rel="stylesheet" href={`/styles/${infographic.template_id}.css`} />
         )}
         
         {/* Add icon library CSS */}

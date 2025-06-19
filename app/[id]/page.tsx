@@ -1,5 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 import { notFound } from 'next/navigation'
+import fs from 'fs'
+import path from 'path'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -11,6 +13,23 @@ interface PageProps {
   searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
+// Function to clean content from potential formatting artifacts
+function cleanContent(content: string): string {
+  if (!content) return content;
+  
+  return content
+    // Remove HTML code block markers
+    .replace(/^```html\s*/i, '')
+    .replace(/\s*```$/i, '')
+    // Remove generic code block markers
+    .replace(/^```\s*/, '')
+    .replace(/\s*```$/, '')
+    // Remove leading/trailing newlines and whitespace
+    .replace(/^\s*\n+/, '')
+    .replace(/\n+\s*$/, '')
+    .trim();
+}
+
 export default async function Page({ params, searchParams }: PageProps) {
   const { id } = await params
   const resolvedSearchParams = searchParams ? await searchParams : {}
@@ -18,12 +37,25 @@ export default async function Page({ params, searchParams }: PageProps) {
   try {
     const { data: infographic, error } = await supabase
       .from('infographics')
-      .select('content, user_query, created_at, generation_status')
+      .select('content, user_query, created_at, generation_status, template_id')
       .eq('id', id)
       .single()
 
     if (error || !infographic) {
       notFound()
+    }
+
+    // Load template-specific CSS if it exists
+    let templateCSS = ''
+    if (infographic.template_id) {
+      const cssPath = path.join(process.cwd(), 'app', '[id]', `${infographic.template_id}.css`)
+      try {
+        if (fs.existsSync(cssPath)) {
+          templateCSS = fs.readFileSync(cssPath, 'utf8')
+        }
+      } catch (error) {
+        console.warn(`Could not load CSS for template ${infographic.template_id}:`, error)
+      }
     }
 
     if (infographic.generation_status !== 'READY') {
@@ -38,11 +70,22 @@ export default async function Page({ params, searchParams }: PageProps) {
       )
     }
 
+    // Clean the content before rendering
+    const cleanedContent = cleanContent(infographic.content);
+
     return (
       <main className="min-h-screen bg-gradient-to-b from-slate-900 to-black">
+        {/* Inject template-specific CSS */}
+        {templateCSS && (
+          <style dangerouslySetInnerHTML={{ __html: templateCSS }} />
+        )}
+        
+        {/* Add icon library CSS */}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+        
         <div 
           className="w-full h-full"
-          dangerouslySetInnerHTML={{ __html: infographic.content }}
+          dangerouslySetInnerHTML={{ __html: cleanedContent }}
         />
         
         {/* Floating action buttons */}
@@ -51,18 +94,14 @@ export default async function Page({ params, searchParams }: PageProps) {
             className="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-colors"
             aria-label="Udostępnij infografikę"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-            </svg>
+            <i className="bi bi-share text-[20px]"></i>
           </button>
           
           <button 
             className="bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg transition-colors"
             aria-label="Pobierz infografikę"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
+            <i className="bi bi-download text-[20px]"></i>
           </button>
         </div>
 
@@ -85,7 +124,7 @@ export async function generateMetadata({ params }: PageProps) {
   try {
     const { data: infographic } = await supabase
       .from('infographics')
-      .select('user_query, created_at')
+      .select('user_query, created_at, template_id')
       .eq('id', id)
       .single()
 
@@ -109,7 +148,11 @@ export async function generateMetadata({ params }: PageProps) {
       title: 'Star Graphs - Infografiki filmowe'
     }
   }
-}export async function generateStaticParams() {  try {    const { data: infographics } = await supabase
+}
+
+export async function generateStaticParams() {
+  try {
+    const { data: infographics } = await supabase
       .from('infographics')
       .select('id')
       .eq('generation_status', 'READY')

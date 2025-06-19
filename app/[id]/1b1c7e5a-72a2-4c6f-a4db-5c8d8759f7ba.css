@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    --oscar-gold: #FFD700;
+    --oscar-dark-gold: #B8860B;
+    --oscar-black: #1a1a1a;
+    --oscar-dark-gray: #2d2d2d;
+    --oscar-light-gray: #f8f9fa;
+    --oscar-white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(135deg, var(--oscar-black) 0%, var(--oscar-dark-gray) 100%);
+    color: var(--oscar-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Animowane tło z iskierkami */
+main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, var(--oscar-gold) 0px, transparent 1px),
+        radial-gradient(circle at 80% 20%, var(--oscar-gold) 0px, transparent 1px),
+        radial-gradient(circle at 60% 80%, var(--oscar-gold) 0px, transparent 1px);
+    background-size: 200px 200px, 300px 300px, 250px 250px;
+    animation: sparkle 8s infinite linear;
+    pointer-events: none;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.05; transform: scale(1); }
+    50% { opacity: 0.15; transform: scale(1.1); }
+}
+
+/* Główny kontener */
+.main-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.container{
+    margin:auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Header z animowanym gradientem */
+.oscar-header {
+    text-align: center;
+    padding: 4rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.oscar-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--oscar-gold), var(--oscar-dark-gold), var(--oscar-gold));
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: goldGradient 3s ease-in-out infinite;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+@keyframes goldGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 300;
+    color: var(--oscar-light-gray);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Karta główna */
+.oscar-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: cardFloat 6s ease-in-out infinite;
+}
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.oscar-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--oscar-gold);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+}
+
+.oscar-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--oscar-gold), transparent);
+    animation: borderGlow 2s ease-in-out infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.5; transform: scaleX(0.5); }
+    50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* Sekcja zdjęcia */
+.image-section {
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.oscar-image {
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid var(--oscar-gold);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.oscar-image:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+}
+
+.image-placeholder {
+    background: linear-gradient(45deg, var(--oscar-dark-gray), var(--oscar-black));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--oscar-gold);
+    font-size: 3rem;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Sekcja opisu */
+.description-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--oscar-gold);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--oscar-gold);
+    animation: underlineGrow 2s ease-out forwards;
+}
+
+@keyframes underlineGrow {
+    to { width: 100%; }
+}
+
+.description-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--oscar-light-gray);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 1s ease-out 1s forwards;
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Ikony i przyciski */
+.oscar-icon {
+    color: var(--oscar-gold);
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.oscar-icon:hover {
+    color: var(--oscar-white);
+    transform: scale(1.2) rotate(360deg);
+}
+
+.cta-button {
+    background: linear-gradient(45deg, var(--oscar-gold), var(--oscar-dark-gold));
+    color: var(--oscar-black);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .oscar-card {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+    
+    .oscar-header {
+        padding: 2rem 0;
+    }
+}
+
+/* Dodatkowe elementy dekoracyjne */
+.decorative-stars {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--oscar-gold);
+    opacity: 0.3;
+    animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+.award-icon {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: var(--oscar-gold);
+    font-size: 2rem;
+    opacity: 0.2;
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

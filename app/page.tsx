@@ -3,21 +3,57 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { createClient } from "@supabase/supabase-js";
 
 // Komponent dla pojedynczej gwiazdy
 const Star = ({ style }: { style: React.CSSProperties }) => {
   return <div className="absolute bg-white rounded-full star" style={style}></div>;
 };
 
-// Przykładowe dane dla Star Graphs (zaślepki)
-const sampleGraphs = [
-  { id: 1, title: "Star Wars Saga", image: "/placeholder-graph-1.jpg" },
-  { id: 2, title: "Marvel Universe", image: "/placeholder-graph-2.jpg" },
-  { id: 3, title: "Christopher Nolan Films", image: "/placeholder-graph-3.jpg" },
-];
+// Typ dla infografiki
+type Infographic = {
+  id: string;
+  user_query: string;
+  content: string;
+  created_at: string;
+};
+
+// Inicjalizacja klienta Supabase (przenieś dane do .env.local w produkcji)
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function Home() {
   const [stars, setStars] = useState<React.CSSProperties[]>([]);
+  const [recentGraphs, setRecentGraphs] = useState<Infographic[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Pobieranie najnowszych infografik
+  useEffect(() => {
+    const fetchRecentGraphs = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from('infographics')
+          .select('*')
+          .eq('generation_status', 'READY') // Zakładając, że taki status oznacza gotową infografikę
+          .order('created_at', { ascending: false })
+          .limit(3);
+        
+        if (error) throw error;
+        
+        setRecentGraphs(data as Infographic[]);
+      } catch (err) {
+        console.error('Błąd pobierania infografik:', err);
+        setError('Nie udało się załadować najnowszych grafów');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecentGraphs();
+  }, []);
   
   useEffect(() => {
     // Generowanie losowych gwiazd
@@ -115,28 +151,81 @@ export default function Home() {
           <h2 id="recent-graphs" className="text-3xl md:text-4xl font-bold mb-10 text-center text-black">Recent Star Graphs</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {sampleGraphs.map((graph) => (
-              <Link 
-                key={graph.id} 
-                href={`#`}
-                className="group"
-              >
-                <button className="w-full bg-purple-600 hover:bg-purple-700 rounded-lg overflow-hidden border border-purple-500 transition-all duration-300 hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-black cursor-pointer">
-                  <div className="h-48 relative bg-purple-800/30">
-                    <div className="absolute inset-0 bg-gradient-to-b from-purple-600/20 to-purple-900/60 z-10"></div>
+            {isLoading ? (
+              // Stan ładowania
+              Array(3).fill(0).map((_, index) => (
+                <div key={index} className="w-full bg-purple-100 rounded-lg overflow-hidden border border-purple-200 animate-pulse" aria-hidden="true">
+                  <div className="h-96 bg-purple-200"></div>
+                  <div className="p-4">
+                    <div className="h-6 bg-purple-200 rounded mb-2 w-3/4"></div>
+                    <div className="h-4 bg-purple-200 rounded w-1/2"></div>
                   </div>
-                  <div className="p-4 text-left">
-                    <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-purple-100">{graph.title}</h3>
-                    <div className="text-purple-200 hover:text-white text-sm flex items-center gap-1">
-                      View graph 
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                      </svg>
+                </div>
+              ))
+            ) : error ? (
+              // Stan błędu
+              <div className="md:col-span-3 text-center p-8 bg-red-100 text-red-700 rounded-lg">
+                <p>{error}</p>
+                <button 
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Odśwież stronę
+                </button>
+              </div>
+            ) : recentGraphs.length > 0 ? (
+              // Infografiki z bazy danych
+              recentGraphs.map((graph) => (
+                <Link 
+                  key={graph.id} 
+                  href={`/${graph.id}`}
+                  className="group"
+                >
+                  <div className="w-full bg-purple-600 hover:bg-purple-700 rounded-lg overflow-hidden border border-purple-500 transition-all duration-300 hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-black cursor-pointer">
+                    <div className="h-96 relative overflow-hidden bg-white">
+                      {/* iframe z zawartością infografiki */}
+                      <iframe 
+                        src={`/${graph.id}`}
+                        title={`Preview of ${graph.user_query}`}
+                        className="w-full h-full border-none bg-white"
+                        sandbox="allow-same-origin"
+                        scrolling="no"
+                        style={{ 
+                          overflow: 'hidden', 
+                          filter: 'none',
+                          transform: 'translateY(-400px)',
+                          height: 'calc(100% + 400px)',
+                          pointerEvents: 'none',
+                          userSelect: 'none'
+                        }}
+                        aria-hidden="true"
+                      ></iframe>
+                    </div>
+                    <div className="p-4 text-left">
+                      <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-purple-100 truncate">{graph.user_query}</h3>
+                      <div className="text-purple-200 hover:text-white text-sm flex items-center gap-1">
+                        View graph 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </button>
-              </Link>
-            ))}
+                </Link>
+              ))
+            ) : (
+              // Brak infografik
+              <div className="md:col-span-3 text-center p-8 bg-purple-100 text-purple-700 rounded-lg">
+                <p className="text-xl font-medium">Brak infografik do wyświetlenia</p>
+                <p className="mt-2">Bądź pierwszym, który stworzy Star Graph!</p>
+                <Link
+                  href="/generate"
+                  className="mt-4 inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                >
+                  Stwórz pierwszy Star Graph
+                </Link>
+              </div>
+            )}
           </div>
           
           {/* Obrazek na środku pod listą grafów */}
@@ -153,7 +242,7 @@ export default function Home() {
         </section>
       </div>
       
-      <main className="relative z-10 max-w-[1600px] mx-auto">
+      <div className="relative z-10 max-w-[1600px] mx-auto">
         {/* Stopka */}
         <footer className="relative z-10 py-8 px-6 text-center text-sm text-white">
           <div className="flex justify-center mb-4">
@@ -171,7 +260,7 @@ export default function Home() {
           </p>
           <p>© 2025 AI.vertics</p>
         </footer>
-      </main>
+      </div>
       
       {/* Globalne style dla animacji gwiazd */}
       <style jsx global>{`

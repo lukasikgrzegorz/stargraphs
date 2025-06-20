@@ -4,6 +4,7 @@ import Link from 'next/link'
 import fs from 'fs'
 import path from 'path'
 import ShareModal from './components/ShareModal'
+import DownloadButton from './components/DownloadButton'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -91,13 +92,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                 description={`Interactive Star Graph about ${infographic.user_query}`}
               />
               
-              <button 
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors flex items-center gap-3 font-medium cursor-pointer"
-                aria-label="Download Star Graph"
-              >
-                <i className="bi bi-download text-[20px]"></i>
-                <span>Download</span>
-              </button>
+              <DownloadButton infographicId={id} />
             </div>
             
             {/* Branding */}

@@ -43,10 +43,13 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
         <div 
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 font-sans text-base"
           style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="share-modal-title"
         >
           <div className="bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl border border-slate-700 relative font-sans">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-white font-sans">Share Star Graph</h3>
+              <h3 id="share-modal-title" className="text-xl font-semibold text-white font-sans">Share Star Graph</h3>
               <button 
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -58,40 +61,41 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
 
             <div className="space-y-4">
               {/* Social Media Buttons */}
-              <div className="flex justify-center gap-4">
-                <FacebookShareButton
-                  url={url}
-                  hashtag="#stargraph"
-                  className="hover:scale-110 transition-transform"
-                >
-                  <FacebookIcon size={48} round />
-                </FacebookShareButton>
+              <div className="flex justify-center gap-8">
+                <div className="flex flex-col items-center gap-2">
+                  <FacebookShareButton
+                    url={url}
+                    hashtag="#stargraph"
+                    className="hover:scale-110 transition-transform"
+                  >
+                    <FacebookIcon size={48} round />
+                  </FacebookShareButton>
+                  <span className="text-sm text-gray-400 font-sans">Facebook</span>
+                </div>
 
-                <LinkedinShareButton
-                  url={url}
-                  title={title}
-                  summary={description}
-                  className="hover:scale-110 transition-transform"
-                >
-                  <LinkedinIcon size={48} round />
-                </LinkedinShareButton>
+                <div className="flex flex-col items-center gap-2">
+                  <LinkedinShareButton
+                    url={url}
+                    title={title}
+                    summary={description}
+                    className="hover:scale-110 transition-transform"
+                  >
+                    <LinkedinIcon size={48} round />
+                  </LinkedinShareButton>
+                  <span className="text-sm text-gray-400 font-sans">LinkedIn</span>
+                </div>
 
-                {/* Instagram - copy link button */}
-                <button
-                  onClick={copyToClipboard}
-                  className="w-12 h-12 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
-                  title="Copy link for Instagram"
-                  aria-label="Copy link for Instagram"
-                >
-                  <i className="bi bi-instagram text-white text-xl"></i>
-                </button>
-              </div>
-
-              {/* Labels */}
-              <div className="flex justify-center gap-4 text-sm text-gray-400 font-sans">
-                <span>Facebook</span>
-                <span>LinkedIn</span>
-                <span>Instagram</span>
+                <div className="flex flex-col items-center gap-2">
+                  <button
+                    onClick={copyToClipboard}
+                    className="w-12 h-12 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition-transform"
+                    title="Copy link for Instagram"
+                    aria-label="Copy link for Instagram"
+                  >
+                    <i className="bi bi-instagram text-white text-xl"></i>
+                  </button>
+                  <span className="text-sm text-gray-400 font-sans">Instagram</span>
+                </div>
               </div>
 
               {/* Copy Link Section */}
@@ -114,6 +118,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
                         ? 'bg-green-600 text-white' 
                         : 'bg-blue-600 hover:bg-blue-700 text-white'
                     }`}
+                    aria-live="polite"
                   >
                     {copied ? 'Copied!' : 'Copy'}
                   </button>

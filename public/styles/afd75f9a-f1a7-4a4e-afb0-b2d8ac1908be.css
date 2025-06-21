@@ -1,29 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Bitter:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap');
 
 :root {
-    --lightsaber-blue: #00BFFF;
-    --lightsaber-yellow: #FFD700;
-    --lightsaber-green: #00FF41;
-    --lightsaber-purple: #8A2BE2;
-    --lightsaber-white: #FFFFFF;
-    --force-dark: #0A0A0A;
-    --space-black: #000000;
-    --star-silver: #C0C0C0;
-    --galaxy-purple: #1A0B2E;
-    --nebula-blue: #16213E;
-    --imperial-gray: #2d2d2d;
-    --rebel-light: #f8f9fa;
+    --western-brown: #8B4513;
+    --western-dark-brown: #5D3A1A;
+    --western-tan: #D2B48C;
+    --western-gold: #B8860B;
+    --western-light-tan: #F5DEB3;
+    --western-red: #A52A2A;
+    --western-black: #1a1a1a;
+    --western-dark-gray: #2d2d2d;
+    --western-light-gray: #f8f9fa;
+    --western-white: #ffffff;
 }
 
 main {
-    font-family: 'Exo 2', sans-serif;
-    background: radial-gradient(ellipse at center, var(--galaxy-purple) 0%, var(--space-black) 70%);
-    color: var(--lightsaber-white);
+    font-family: 'Bitter', serif;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAgVBMVEUAAADMzMzd3d3V1dXa2trX19fT09PQ0NDLy8vJycnGxsbExMS/v7+8vLy4uLi1tbWzs7OwsLCtra2qqqqnp6ekpKShoaGdnZ2ZmZmWlpaSkpKPj4+MjIyJiYmGhoaDg4N/f398fHx5eXl1dXVycnJvb29sbGxpaWllZWViYmJfX1/yS4ZdAAAA2ElEQVRIx+3WyRKCMBBF0ZeMIGMMCKJRUVD//wNVoEy0nQ670pXvE9xFQoZOqVQqlaJ0iMq41vo4i8aIEookniw2zWbDND+JDOICwMExzUcR742QttgT6YEwkAFXkYBIYCSETQQB4XAlEQSET4Q9kNRf5LXfT37v4MRiyk8nd53AHUgDGYzfsfUpItzGZsiLCLezOfoKEX68raB1D7MdEySFru+fP8jxn6QnoueT1PO7RoQg0QSxAFFPIhQJRCKJOEgkEYdIxCQG8YhENhGXCBORvr9KpVL5sz69DBqTCL89PAAAAABJRU5ErkJggg=='), linear-gradient(135deg, var(--western-black) 0%, var(--western-dark-brown) 100%);
+    color: var(--western-light-tan);
     line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Animowane tło z gwiazdami */
+/* Animowane tło z kurzem */
 main::before {
     content: '';
     position: fixed;
@@ -32,52 +30,22 @@ main::before {
     width: 100%;
     height: 100%;
     background-image: 
-        radial-gradient(circle at 10% 20%, var(--star-silver) 1px, transparent 1px),
-        radial-gradient(circle at 90% 80%, var(--lightsaber-blue) 0.5px, transparent 0.5px),
-        radial-gradient(circle at 60% 30%, var(--star-silver) 0.8px, transparent 0.8px),
-        radial-gradient(circle at 30% 70%, var(--lightsaber-yellow) 0.3px, transparent 0.3px),
-        radial-gradient(circle at 80% 10%, var(--star-silver) 0.6px, transparent 0.6px);
-    background-size: 400px 400px, 500px 500px, 300px 300px, 600px 600px, 450px 450px;
-    animation: starField 20s infinite linear;
+        radial-gradient(circle at 20% 50%, var(--western-tan) 0px, transparent 1px),
+        radial-gradient(circle at 80% 20%, var(--western-tan) 0px, transparent 1px),
+        radial-gradient(circle at 60% 80%, var(--western-tan) 0px, transparent 1px);
+    background-size: 200px 200px, 300px 300px, 250px 250px;
+    animation: dustStorm 15s infinite linear;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.1;
     z-index: -1;
 }
 
-@keyframes starField {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-100px); }
-}
-
-/* LIGHTSABER THEME - Star Wars Inspired */
-main.lightsaber-theme {
-    font-family: 'Exo 2', sans-serif;
-    background: radial-gradient(ellipse at center, var(--galaxy-purple) 0%, var(--space-black) 70%);
-    color: var(--lightsaber-white);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Animowane tło z gwiazdami */
-main.lightsaber-theme::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(circle at 10% 20%, var(--star-silver) 1px, transparent 1px),
-        radial-gradient(circle at 90% 80%, var(--lightsaber-blue) 0.5px, transparent 0.5px),
-        radial-gradient(circle at 60% 30%, var(--star-silver) 0.8px, transparent 0.8px),
-        radial-gradient(circle at 30% 70%, var(--lightsaber-yellow) 0.3px, transparent 0.3px),
-        radial-gradient(circle at 80% 10%, var(--star-silver) 0.6px, transparent 0.6px);
-    background-size: 400px 400px, 500px 500px, 300px 300px, 600px 600px, 450px 450px;
-    animation: starField 20s infinite linear;
-    pointer-events: none;
-    opacity: 0.6;
-    z-index: -1;
+@keyframes dustStorm {
+    0% { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(-50px) translateY(20px); }
+    50% { transform: translateX(0) translateY(40px); }
+    75% { transform: translateX(50px) translateY(20px); }
+    100% { transform: translateX(0) translateY(0); }
 }
 
 /* Główny kontener */
@@ -88,8 +56,8 @@ main.lightsaber-theme::before {
     padding: 2rem 0;
 }
 
-.container {
-    margin: auto;
+.container{
+    margin:auto;
     width: 100%;
     display: flex;
     align-items: center;
@@ -97,67 +65,65 @@ main.lightsaber-theme::before {
     flex-direction: column;
 }
 
-/* Lightsaber Header */
-.lightsaber-header {
+/* Header w stylu western */
+.western-header {
     text-align: center;
-    padding: 2rem 0;
+    padding: 1rem 0;
     position: relative;
     overflow: hidden;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAFElEQVQYlWNgIAIwEqHGYaQqGgYAALcABJUO4SgAAAAASUVORK5CYII=');
 }
 
-.lightsaber-header::before {
+.western-header::before {
     content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.2), transparent);
-    animation: forceWave 4s infinite;
+    background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.1), transparent);
+    animation: tumbleweed 5s infinite;
 }
 
-@keyframes forceWave {
+@keyframes tumbleweed {
     0% { left: -100%; }
     100% { left: 100%; }
 }
 
-.lightsaber-header .main-title {
-    font-family: 'Orbitron', monospace;
+.main-title {
+    font-family: 'Rye', cursive;
     font-size: clamp(2.5rem, 8vw, 5rem);
     font-weight: 900;
-    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-white), var(--lightsaber-blue));
-    background-size: 200% 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: saberGlow 3s ease-in-out infinite;
-    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    color: var(--western-gold);
+    text-shadow: 3px 3px 0 var(--western-black), -1px -1px 0 var(--western-black), 
+                 1px -1px 0 var(--western-black), -1px 1px 0 var(--western-black),
+                 4px 4px 8px rgba(0,0,0,0.5);
     margin-bottom: 1rem;
     position: relative;
     letter-spacing: 2px;
 }
 
-@keyframes saberGlow {
-    0%, 100% { 
-        background-position: 0% 50%;
-        filter: drop-shadow(0 0 10px var(--lightsaber-blue));
-    }
-    50% { 
-        background-position: 100% 50%;
-        filter: drop-shadow(0 0 20px var(--lightsaber-white));
-    }
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--western-gold), transparent);
 }
 
-.lightsaber-header .subtitle {
-    font-family: 'Exo 2', sans-serif;
+.subtitle {
+    font-family: 'Bitter', serif;
     font-size: clamp(1.2rem, 3vw, 1.8rem);
     font-weight: 300;
-    color: var(--star-silver);
+    color: var(--western-light-tan);
     margin-bottom: 2rem;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 1s ease-out 0.5s forwards;
-    letter-spacing: 1px;
+    font-style: italic;
 }
 
 @keyframes fadeInUp {
@@ -167,188 +133,74 @@ main.lightsaber-theme::before {
     }
 }
 
-/* Lightsaber Card */
-.lightsaber-card {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px);
-    border: 2px solid var(--nebula-blue);
-    border-radius: 20px;
+/* Karta główna */
+.western-card {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAA1VBMVEUAAACCZEKXeU6cbVKmclaicFSFZkOVeE2ZelCOcEiTdUujcFWJakWQc0mNb0ePcUiLbEaMbkaIaUSGZ0OKa0aRc0qYeU+VdkuTdEqdblOhb1SfblOWd02aekJgURQ/NQpRRg9IPQxEOQs8MglsWhhYTBJmVhZiVBVaTxJvXBlzXxw0LQc4MAgwKgZoWBdcUBNBNwtLQA45MQlOQw5GPA1WShFVSRByXhtqWRh6YyB4YR53YB51Xx5JocopAAAKIQFYrmNptnVkt27W9fr3/P76/f7y+/xwuXr9/v4AAAD///+vkZA0AAAAOXRSTlMAAQMEBQYHCAkKCwwNDg8QERMUFRYXGBkaGxweHyAlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9FrM5XAAABD0lEQVRIx+3V13LCMBAF0JWR0TDqnVBDJ1TTO6Rn//+TQjweG1cJyUzy4D54sDSrK+1KI4Q+ffr0OWbMwNXscKxcLHQBzNaB2W2ALTJ4Ak1ee0kgWmGQRxAStb1wZ4tgxq/Zj2ScRT3fKpfLFvZZE5F3EnUZFpNs/Ua9TnGcOIExL+Up4YukufS8dAKPCyb2eIlpUCSJUqVSkeqhPzURM5VkCPTwVa1Wr/iHfsoOAUJx25Va9YYQNuKlAvi2TYrVXMVx90MzBEe2qaucPF94FXcUBsBi6xWkJiefM4nT5rNhAEEQSt6iKFoQo4PVeoZhzkdRZG8idRNCIYQmtMbKJBhCxYrUFWMqpTRjPL38pCxCn14E37B1RE6fzgiJAAAAAElFTkSuQmCC'), rgba(29, 19, 7, 0.8);
+    border: 2px solid var(--western-gold);
+    border-radius: 8px;
     padding: 3rem 2rem;
     margin: 2rem auto;
     max-width: 800px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    animation: cardHover 6s ease-in-out infinite, nebulaGlow 3s ease-in-out infinite;
+    animation: cardAppear 1.5s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-@keyframes nebulaGlow {
-    0%, 100% { 
-        border-color: var(--nebula-blue);
-        box-shadow: 0 0 20px rgba(22, 33, 62, 0.5);
-    }
-    50% { 
-        border-color: var(--lightsaber-blue);
-        box-shadow: 0 0 40px rgba(0, 191, 255, 0.6);
-    }
+@keyframes cardAppear {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-.lightsaber-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    border-color: var(--lightsaber-blue);
-    box-shadow: 
-        0 0 50px rgba(0, 191, 255, 0.4),
-        0 20px 60px rgba(0, 0, 0, 0.3);
+.western-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(139, 69, 19, 0.4);
 }
 
-/* Section Titles for Lightsaber Theme */
-.lightsaber-card .section-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 2.2rem;
-    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-green));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
-    position: relative;
-    display: inline-block;
-    letter-spacing: 1px;
-}
-
-.lightsaber-card .section-title::after {
+.western-card::before {
     content: '';
     position: absolute;
-    bottom: -5px;
+    top: 0;
     left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--lightsaber-blue), var(--lightsaber-green));
-    animation: saberUnderline 2s ease-out forwards;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--western-red), var(--western-gold), var(--western-red));
 }
 
-@keyframes saberUnderline {
-    to { width: 100%; }
-}
-
-/* Lightsaber Icons */
-.lightsaber-icon {
-    font-size: 1.5rem;
-    margin: 0 0.5rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    animation: iconGlow 2s ease-in-out infinite alternate;
-}
-
-.lightsaber-icon:nth-child(1) { 
-    color: var(--lightsaber-blue);
-    animation-delay: 0s;
-}
-.lightsaber-icon:nth-child(2) { 
-    color: var(--lightsaber-yellow);
-    animation-delay: 0.5s;
-}
-.lightsaber-icon:nth-child(3) { 
-    color: var(--lightsaber-green);
-    animation-delay: 1s;
-}
-.lightsaber-icon:nth-child(4) { 
-    color: var(--lightsaber-purple);
-    animation-delay: 1.5s;
-}
-
-@keyframes iconGlow {
-    0% { 
-        filter: drop-shadow(0 0 8px currentColor);
-        transform: scale(1);
-    }
-    100% { 
-        filter: drop-shadow(0 0 15px currentColor);
-        transform: scale(1.1);
-    }
-}
-
-.lightsaber-icon:hover {
-    color: var(--lightsaber-white);
-    transform: scale(1.3) rotate(180deg);
-    filter: drop-shadow(0 0 20px currentColor);
-}
-
-/* Timeline for Lightsaber Theme */
-.lightsaber-card .timeline-year {
-    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-yellow));
-    color: var(--space-black);
-    border: 2px solid var(--lightsaber-white);
-    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
-    font-family: 'Orbitron', monospace;
-}
-
-.lightsaber-card .timeline-year:hover {
-    box-shadow: 0 0 25px rgba(0, 191, 255, 0.8);
-}
-
-.lightsaber-card .timeline-content {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(0, 191, 255, 0.3);
-}
-
-.lightsaber-card .timeline-content:hover {
-    border-color: var(--lightsaber-blue);
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
-}
-
-.lightsaber-card .timeline-title {
-    color: var(--lightsaber-blue);
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
-    font-family: 'Orbitron', monospace;
-}
-
-.lightsaber-card .timeline-description {
-    font-family: 'Exo 2', sans-serif;
-    color: var(--star-silver);
-}
-
-/* Decorative Elements */
-.decorative-force {
+.western-card::after {
+    content: '';
     position: absolute;
-    top: 20px;
-    right: 20px;
-    color: var(--lightsaber-blue);
-    opacity: 0.4;
-    animation: forceEnergy 3s infinite;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--western-red), var(--western-gold), var(--western-red));
 }
 
-@keyframes forceEnergy {
-    0%, 100% { 
-        opacity: 0.4; 
-        transform: scale(1) rotate(0deg);
-        filter: drop-shadow(0 0 10px var(--lightsaber-blue));
-    }
-    50% { 
-        opacity: 0.8; 
-        transform: scale(1.3) rotate(180deg);
-        filter: drop-shadow(0 0 20px var(--lightsaber-blue));
-    }
-}
-
-.saber-icon {
+/* Elementy dekoracyjne */
+.decorative-rope {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: var(--lightsaber-yellow);
-    font-size: 2rem;
-    opacity: 0.3;
-    animation: saberSpin 8s linear infinite;
+    top: 10px;
+    right: 10px;
+    color: var(--western-tan);
+    font-size: 1.2rem;
+    opacity: 0.7;
 }
 
-@keyframes saberSpin {
-    from { 
-        transform: rotate(0deg); 
-        filter: drop-shadow(0 0 10px var(--lightsaber-yellow));
-    }
-    to { 
-        transform: rotate(360deg); 
-        filter: drop-shadow(0 0 15px var(--lightsaber-yellow));
-    }
+.sheriff-icon {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--western-gold);
+    color: var(--western-dark-brown);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 /* Sekcja zdjęcia */
@@ -358,51 +210,86 @@ main.lightsaber-theme::before {
     position: relative;
 }
 
-/* Lightsaber Image */
-.lightsaber-image {
+.western-image {
     width: 100%;
     max-width: 400px;
-    border-radius: 15px;
-    border: 3px solid var(--lightsaber-blue);
-    transition: all 0.4s ease;
+    margin: 0 auto 0 0; /* Zmiana z "0 auto" na "0 auto 0 0" */
     position: relative;
-    overflow: hidden;
-    box-shadow: 
-        0 0 20px rgba(0, 191, 255, 0.4),
-        0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: left; /* Dodanie wyrównania do lewej */
 }
 
-.lightsaber-image:hover {
-    transform: scale(1.05);
-    border-color: var(--lightsaber-white);
-    box-shadow: 
-        0 0 30px rgba(0, 191, 255, 0.6),
-        0 0 50px rgba(255, 255, 255, 0.3),
-        0 15px 40px rgba(0, 0, 0, 0.7);
+.western-image img {
+    width: 100%;
+    border-radius: 8px;
+    border: 3px solid var(--western-gold);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    filter: sepia(0.2);
+    transition: all 0.4s ease;
+}
+
+.western-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(210, 180, 140, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.western-image:hover img {
+    transform: scale(1.03);
+    filter: sepia(0.1);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
 }
 
 /* Sekcja opisu */
 .description-section {
     margin: 3rem 0;
     position: relative;
+    background: rgba(93, 58, 26, 0.7); /* Zmieniony kolor tła na ciemniejszy brąz z większą nieprzezroczystością */
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 3px solid var(--western-gold);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Dodany cień dla lepszego oddzielenia od tła */
+}
+
+.section-title {
+    font-family: 'Rye', cursive;
+    font-size: 1.8rem;
+    color: var(--western-gold);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.6);
+}
+
+.section-title i {
+    color: var(--western-tan);
 }
 
 .description-text {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--star-silver);
+    color: var(--western-light-tan);
     margin-bottom: 2rem;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideInLeft 500ms ease-out 500ms forwards;
-    font-family: 'Exo 2', sans-serif;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
 }
 
-@keyframes slideInLeft {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+/* Ikony i przyciski */
+.western-icon {
+    color: var(--western-gold);
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.western-icon:hover {
+    color: var(--western-tan);
+    transform: scale(1.2);
 }
 
 /* Timeline Component */
@@ -414,6 +301,24 @@ main.lightsaber-theme::before {
 .timeline {
     position: relative;
     padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--western-gold) 0px,
+        var(--western-gold) 10px,
+        var(--western-dark-brown) 10px,
+        var(--western-dark-brown) 20px
+    );
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 4px;
 }
 
 .timeline-item {
@@ -444,29 +349,27 @@ main.lightsaber-theme::before {
 }
 
 .timeline-year {
+    background: var(--western-dark-brown); /* Usunięcie tekstury, zastosowanie jednolitego tła */
+    color: var(--western-gold);
     padding: 1rem 1.5rem;
-    border-radius: 50px;
+    border-radius: 4px;
     font-weight: 700;
     font-size: 1.2rem;
     min-width: 100px;
     text-align: center;
     position: relative;
     z-index: 3;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     transition: all 0.3s ease;
+    border: 1px solid var(--western-gold);
+    font-family: 'Rye', cursive;
 }
 
 .timeline-year:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
 }
 
-.timeline-year::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 20px;
-    height: 3px;
-    transform: translateY(-50%);
-}
 
 .timeline-item:nth-child(odd) .timeline-year::before {
     right: -20px;
@@ -479,8 +382,9 @@ main.lightsaber-theme::before {
 .timeline-content {
     flex: 1;
     padding: 2rem;
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgYGD4z0AKYBxVAAH9AGSCsaHaAAAAAElFTkSuQmCC'), rgba(29, 19, 7, 0.6);
+    border: 1px solid var(--western-tan);
+    border-radius: 4px;
     margin: 0 2rem;
     position: relative;
     transition: all 0.3s ease;
@@ -489,6 +393,8 @@ main.lightsaber-theme::before {
 
 .timeline-content:hover {
     transform: translateY(-5px);
+    border-color: var(--western-gold);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .timeline-content::before {
@@ -503,21 +409,27 @@ main.lightsaber-theme::before {
 
 .timeline-item:nth-child(odd) .timeline-content::before {
     left: -20px;
+    border-right-color: var(--western-tan);
 }
 
 .timeline-item:nth-child(even) .timeline-content::before {
     right: -20px;
+    border-left-color: var(--western-tan);
 }
 
 .timeline-title {
+    font-family: 'Rye', cursive;
+    color: var(--western-gold);
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    font-weight: 700;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
 }
 
 .timeline-description {
+    color: var(--western-light-tan);
     line-height: 1.6;
     font-size: 1rem;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
 /* Gallery Component */
@@ -535,10 +447,9 @@ main.lightsaber-theme::before {
 
 .gallery-item {
     position: relative;
-    border-radius: 15px;
+    border-radius: 4px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.6);
-    border: 2px solid rgba(0, 191, 255, 0.3);
+    border: 2px solid var(--western-tan);
     transition: all 0.4s ease;
     opacity: 0;
     transform: scale(0.9) translateY(20px);
@@ -560,9 +471,9 @@ main.lightsaber-theme::before {
 }
 
 .gallery-item:hover {
-    transform: translateY(-10px) scale(1.03);
-    border-color: var(--lightsaber-blue);
-    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+    transform: translateY(-5px);
+    border-color: var(--western-gold);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
 }
 
 .gallery-image {
@@ -570,10 +481,12 @@ main.lightsaber-theme::before {
     height: 350px;
     object-fit: cover;
     transition: all 0.4s ease;
+    filter: sepia(0.2);
 }
 
 .gallery-item:hover .gallery-image {
     transform: scale(1.1);
+    filter: sepia(0.1);
 }
 
 .gallery-overlay {
@@ -581,8 +494,8 @@ main.lightsaber-theme::before {
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-    color: var(--lightsaber-white);
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--western-light-tan);
     padding: 2rem 1.5rem 1.5rem;
     transform: translateY(100%);
     transition: all 0.4s ease;
@@ -596,13 +509,19 @@ main.lightsaber-theme::before {
     margin: 0;
     font-size: 1rem;
     font-weight: 500;
-    color: var(--lightsaber-blue);
+    color: var(--western-gold);
     text-align: center;
-    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+    font-family: 'Bitter', serif;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    .timeline::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
     .timeline-item {
         flex-direction: column !important;
         align-items: center;
@@ -636,6 +555,7 @@ main.lightsaber-theme::before {
         left: 50%;
         width: 3px;
         height: 15px;
+        background: var(--western-gold);
         transform: translateX(-50%);
     }
     

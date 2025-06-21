@@ -52,7 +52,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
               <h3 id="share-modal-title" className="text-xl font-semibold text-white font-sans">Share Star Graph</h3>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
                 aria-label="Close modal"
               >
                 <i className="bi bi-x-lg text-xl"></i>
@@ -113,7 +113,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
                   />
                   <button
                     onClick={copyToClipboard}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors font-sans ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors font-sans cursor-pointer ${
                       copied 
                         ? 'bg-green-600 text-white' 
                         : 'bg-blue-600 hover:bg-blue-700 text-white'

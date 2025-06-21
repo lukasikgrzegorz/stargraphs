@@ -201,37 +201,49 @@ export default function GeneratePage() {
             className="inline-block transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg"
             aria-label="Go back to homepage"
           >
-            <Image 
-              src="/logo.png" 
-              alt="Star Graphs Logo" 
-              width={200} 
-              height={80}
-              className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] transition-all duration-300"
-            />
+            <div className="w-[200px] h-[80px] relative mx-auto">
+              <Image 
+                src="/logo.png" 
+                alt="Star Graphs Logo" 
+                fill
+                priority
+                sizes="200px"
+                className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.7)] transition-all duration-300 object-contain"
+              />
+            </div>
           </Link>
         </div>
       </header>
 
       {/* Main Content */}
       <main className="relative z-10 px-4 sm:px-8 lg:px-16" role="main">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <Image
-              src="/concept2.png"
-              alt="Infographic concept illustration"
-              width={250}
-              height={300}
-              className="mx-auto"
-            />
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-16 mb-8">
+            {/* Left side - Concept image */}
+            <div className="flex-shrink-0">
+              <div className="w-[300px] h-[250px] relative">
+                <Image
+                  src="/concept2.png"
+                  alt="Infographic concept illustration"
+                  fill
+                  priority
+                  sizes="300px"
+                  className="object-contain"
+                />
+              </div>
+            </div>
+            
+            {/* Right side - Title and description */}
+            <div className="flex-1 text-center lg:text-left">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                Generate Your Star Graph
+              </h1>
+              
+              <p className="text-xl text-gray-300 max-w-2xl">
+                Enter a movie title, director or actor, choose style, and let the little spirits from planet SPAM create something magical.
+              </p>
+            </div>
           </div>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
-            Generate Your Star Graph
-          </h1>
-          
-          <p className="text-xl text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-            Enter a movie title, director or actor, choose style, and let the little spirits from planet SPAM create something magical.
-          </p>
         </div>
       </main>
 
@@ -292,18 +304,7 @@ export default function GeneratePage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr" role="radiogroup">
                         {isLoadingTemplates ? (
                           // Skeleton loading dla szablonów
-                          <>
-                            {[1, 2, 3].map((item) => (
-                              <div
-                                key={item}
-                                className="p-4 rounded-lg border-2 border-gray-200 bg-gray-50 animate-pulse h-full"
-                              >
-                                <div className="h-5 bg-gray-300 rounded mb-2"></div>
-                                <div className="h-4 bg-gray-200 rounded mb-1"></div>
-                                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                              </div>
-                            ))}
-                          </>
+                          <div className="text-center text-gray-500">Loading styles...</div>
                         ) : (
                           templates.map((template) => (
                             <button
@@ -392,14 +393,16 @@ export default function GeneratePage() {
       <main className="relative z-10 max-w-[1600px] mx-auto">
         <footer className="relative z-10 py-8 px-6 text-center text-sm text-white">
           <div className="flex justify-center mb-4">
-            <Image
-              src="/cookies.png"
-              alt=""
-              width={200}
-              height={60}
-              className="object-contain"
-              aria-hidden="true"
-            />
+            <div className="w-[800px] h-[240px] relative">
+              <Image
+                src="/cookies.png"
+                alt=""
+                fill
+                sizes="200px"
+                className="object-contain"
+                aria-hidden="true"
+              />
+            </div>
           </div>
           <p className="font-bold mb-2">
             Star Graphs does not collect any cookies. Your data stays in a galaxy far, far away.

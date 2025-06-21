@@ -28,7 +28,8 @@ export default function Home() {
   const [recentGraphs, setRecentGraphs] = useState<Infographic[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+  const [loadedIframes, setLoadedIframes] = useState<Record<string, boolean>>({});
+
   // Pobieranie najnowszych infografik
   useEffect(() => {
     const fetchRecentGraphs = async () => {
@@ -40,9 +41,9 @@ export default function Home() {
           .eq('generation_status', 'READY') // Zakładając, że taki status oznacza gotową infografikę
           .order('created_at', { ascending: false })
           .limit(3);
-        
+
         if (error) throw error;
-        
+
         setRecentGraphs(data as Infographic[]);
       } catch (err) {
         console.error('Błąd pobierania infografik:', err);
@@ -54,16 +55,16 @@ export default function Home() {
 
     fetchRecentGraphs();
   }, []);
-  
+
   useEffect(() => {
     // Generowanie losowych gwiazd
     const starCount = 100;
     const newStars = [];
-    
+
     for (let i = 0; i < starCount; i++) {
       // Losowy kierunek ruchu (poziomy)
       const moveX = Math.random() > 0.5 ? '100%' : '-100%';
-      
+
       newStars.push({
         top: `${Math.random() * 100}vh`,
         left: `${Math.random() * 100}vw`,
@@ -80,9 +81,17 @@ export default function Home() {
         '--move-x': moveX,
       } as React.CSSProperties);
     }
-    
+
     setStars(newStars);
   }, []);
+
+  // Funkcja obsługująca załadowanie iframe
+  const handleIframeLoad = (graphId: string) => {
+    setLoadedIframes(prev => ({
+      ...prev,
+      [graphId]: true
+    }));
+  };
 
   return (
     <div className="relative min-h-screen bg-black text-white overflow-hidden">
@@ -92,20 +101,22 @@ export default function Home() {
           <Star key={index} style={style} />
         ))}
       </div>
-      
+
       {/* Główna zawartość */}
       <main className="relative z-10 px-4 sm:px-8 lg:px-16 py-12 max-w-[1600px] mx-auto">
         {/* Sekcja Hero */}
         <section className="flex flex-col m-auto lg:flex-row items-center justify-between gap-12" aria-labelledby="hero-title">
           <div className="flex flex-col items-center gap-8 lg:w-1/2">
-            <Image 
-              src="/logo.png" 
-              alt="Star Graphs Logo" 
-              width={300} 
-              height={120}
-              priority
-              className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
-            />
+            <div className="w-[300px] h-[120px] relative">
+              <Image 
+                src="/logo.png" 
+                alt="Star Graphs Logo" 
+                fill
+                priority
+                sizes="300px"
+                className="drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] object-contain"
+              />
+            </div>
             
             <h1 
               id="hero-title"
@@ -131,13 +142,16 @@ export default function Home() {
           </div>
           
           <div className="lg:w-1/2 flex justify-center">
-            <Image 
-              src="/hero.png" 
-              alt="Star Graphs visualization example" 
-              width={600} 
-              height={400}
-              className="rounded-lg shadow-2xl transition-all duration-500 animate-float"
-            />
+            <div className="w-[800px] h-[500px] relative">
+              <Image 
+                src="/hero.png" 
+                alt="Star Graphs visualization example" 
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                className="rounded-lg shadow-2xl transition-all duration-500 animate-float object-contain"
+              />
+            </div>
           </div>
         </section>
       </main>
@@ -183,11 +197,19 @@ export default function Home() {
                 >
                   <div className="w-full bg-purple-600 hover:bg-purple-700 rounded-lg overflow-hidden border border-purple-500 transition-all duration-300 hover:scale-105 transform focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-black cursor-pointer">
                     <div className="h-96 relative overflow-hidden bg-white">
+                      {/* Placeholder podczas ładowania */}
+                      {!loadedIframes[graph.id] && (
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 z-10">
+                          <div className="w-12 h-12 border-4 border-t-purple-600 border-r-purple-600 border-b-transparent border-l-transparent rounded-full animate-spin mb-4" role="status" aria-label="Loading"></div>
+                          <p className="text-purple-700 font-medium">Loading graph...</p>
+                        </div>
+                      )}
+                      
                       {/* iframe z zawartością infografiki */}
                       <iframe 
                         src={`/${graph.id}`}
                         title={`Preview of ${graph.user_query}`}
-                        className="w-full h-full border-none bg-white"
+                        className={`w-full h-full border-none bg-white transition-opacity duration-500 ${loadedIframes[graph.id] ? 'opacity-100' : 'opacity-0'}`}
                         sandbox="allow-same-origin"
                         scrolling="no"
                         style={{ 
@@ -198,6 +220,7 @@ export default function Home() {
                           pointerEvents: 'none',
                           userSelect: 'none'
                         }}
+                        onLoad={() => handleIframeLoad(graph.id)}
                         aria-hidden="true"
                       ></iframe>
                     </div>
@@ -230,14 +253,16 @@ export default function Home() {
           
           {/* Obrazek na środku pod listą grafów */}
           <div className="flex justify-center mt-12">
-            <Image
-              src="/concept1.png"
-              alt=""
-              width={500}
-              height={300}
-              className="object-contain"
-              aria-hidden="true"
-            />
+            <div className="w-[500px] h-[300px] relative">
+              <Image
+                src="/concept1.png"
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 500px"
+                className="object-contain"
+                aria-hidden="true"
+              />
+            </div>
           </div>
         </section>
       </div>
@@ -246,14 +271,16 @@ export default function Home() {
         {/* Stopka */}
         <footer className="relative z-10 py-8 px-6 text-center text-sm text-white">
           <div className="flex justify-center mb-4">
-            <Image
-              src="/cookies.png"
-              alt=""
-              width={200}
-              height={60}
-              className="object-contain"
-              aria-hidden="true"
-            />
+            <div className="w-[800px] h-[240px] relative">
+              <Image
+                src="/cookies.png"
+                alt=""
+                fill
+                sizes="200px"
+                className="object-contain"
+                aria-hidden="true"
+              />
+            </div>
           </div>
           <p className="font-bold mb-2">
             Star Graphs does not collect any cookies. Your data stays in a galaxy far, far away.
@@ -290,6 +317,11 @@ export default function Home() {
         
         .animate-float {
           animation: float 6s infinite ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
       `}</style>
     </div>

@@ -84,7 +84,7 @@ export default function GeneratePage() {
         const { data, error } = await supabase
           .from('templates')
           .select('id, name, description')
-          .order('created_at', { ascending: false });
+          .order('name', { ascending: true }); // Sortowanie alfabetyczne po nazwie
 
         if (error) {
           throw error;
@@ -289,14 +289,14 @@ export default function GeneratePage() {
                       <legend className="block text-lg font-semibold mb-3 text-black">
                         Choose a style
                       </legend>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" role="radiogroup">
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr" role="radiogroup">
                         {isLoadingTemplates ? (
                           // Skeleton loading dla szablonów
                           <>
                             {[1, 2, 3].map((item) => (
                               <div
                                 key={item}
-                                className="p-4 rounded-lg border-2 border-gray-200 bg-gray-50 animate-pulse"
+                                className="p-4 rounded-lg border-2 border-gray-200 bg-gray-50 animate-pulse h-full"
                               >
                                 <div className="h-5 bg-gray-300 rounded mb-2"></div>
                                 <div className="h-4 bg-gray-200 rounded mb-1"></div>
@@ -313,7 +313,7 @@ export default function GeneratePage() {
                               disabled={isLoading}
                               role="radio"
                               aria-checked={selectedTemplateId === template.id}
-                              className={`p-4 rounded-lg border-2 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+                              className={`p-4 rounded-lg border-2 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white flex flex-col justify-start h-full ${
                                 selectedTemplateId === template.id
                                   ? 'border-purple-500 bg-purple-50'
                                   : 'border-gray-300 bg-gray-50 hover:border-purple-400 hover:bg-purple-25'

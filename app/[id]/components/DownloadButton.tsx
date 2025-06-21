@@ -59,7 +59,7 @@ export default function DownloadButton({ infographicId }: DownloadButtonProps) {
     <button 
       onClick={handleDownload}
       disabled={isDownloading}
-      className={`text-white px-4 py-2 rounded-lg shadow-lg transition-colors flex items-center gap-3 font-medium ${
+      className={`text-white px-4 py-2 rounded-lg shadow-lg transition-colors flex items-center gap-3 font-medium font-sans cursor-pointer text-base ${
         isDownloading 
           ? 'bg-gray-600 cursor-not-allowed' 
           : 'bg-green-600 hover:bg-green-700'

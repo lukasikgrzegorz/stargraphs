@@ -1,0 +1,681 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --lightsaber-blue: #00BFFF;
+    --lightsaber-yellow: #FFD700;
+    --lightsaber-green: #00FF41;
+    --lightsaber-purple: #8A2BE2;
+    --lightsaber-white: #FFFFFF;
+    --force-dark: #0A0A0A;
+    --space-black: #000000;
+    --star-silver: #C0C0C0;
+    --galaxy-purple: #1A0B2E;
+    --nebula-blue: #16213E;
+    --imperial-gray: #2d2d2d;
+    --rebel-light: #f8f9fa;
+}
+
+main {
+    font-family: 'Exo 2', sans-serif;
+    background: radial-gradient(ellipse at center, var(--galaxy-purple) 0%, var(--space-black) 70%);
+    color: var(--lightsaber-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Animowane tło z gwiazdami */
+main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, var(--star-silver) 1px, transparent 1px),
+        radial-gradient(circle at 90% 80%, var(--lightsaber-blue) 0.5px, transparent 0.5px),
+        radial-gradient(circle at 60% 30%, var(--star-silver) 0.8px, transparent 0.8px),
+        radial-gradient(circle at 30% 70%, var(--lightsaber-yellow) 0.3px, transparent 0.3px),
+        radial-gradient(circle at 80% 10%, var(--star-silver) 0.6px, transparent 0.6px);
+    background-size: 400px 400px, 500px 500px, 300px 300px, 600px 600px, 450px 450px;
+    animation: starField 20s infinite linear;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+@keyframes starField {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-100px); }
+}
+
+/* LIGHTSABER THEME - Star Wars Inspired */
+main.lightsaber-theme {
+    font-family: 'Exo 2', sans-serif;
+    background: radial-gradient(ellipse at center, var(--galaxy-purple) 0%, var(--space-black) 70%);
+    color: var(--lightsaber-white);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animowane tło z gwiazdami */
+main.lightsaber-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, var(--star-silver) 1px, transparent 1px),
+        radial-gradient(circle at 90% 80%, var(--lightsaber-blue) 0.5px, transparent 0.5px),
+        radial-gradient(circle at 60% 30%, var(--star-silver) 0.8px, transparent 0.8px),
+        radial-gradient(circle at 30% 70%, var(--lightsaber-yellow) 0.3px, transparent 0.3px),
+        radial-gradient(circle at 80% 10%, var(--star-silver) 0.6px, transparent 0.6px);
+    background-size: 400px 400px, 500px 500px, 300px 300px, 600px 600px, 450px 450px;
+    animation: starField 20s infinite linear;
+    pointer-events: none;
+    opacity: 0.6;
+    z-index: -1;
+}
+
+/* Główny kontener */
+.main-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.container {
+    margin: auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* Lightsaber Header */
+.lightsaber-header {
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.lightsaber-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.2), transparent);
+    animation: forceWave 4s infinite;
+}
+
+@keyframes forceWave {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.lightsaber-header .main-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-white), var(--lightsaber-blue));
+    background-size: 200% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: saberGlow 3s ease-in-out infinite;
+    text-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    margin-bottom: 1rem;
+    position: relative;
+    letter-spacing: 2px;
+}
+
+@keyframes saberGlow {
+    0%, 100% { 
+        background-position: 0% 50%;
+        filter: drop-shadow(0 0 10px var(--lightsaber-blue));
+    }
+    50% { 
+        background-position: 100% 50%;
+        filter: drop-shadow(0 0 20px var(--lightsaber-white));
+    }
+}
+
+.lightsaber-header .subtitle {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 300;
+    color: var(--star-silver);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+    letter-spacing: 1px;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lightsaber Card */
+.lightsaber-card {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    border: 2px solid var(--nebula-blue);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: cardHover 6s ease-in-out infinite, nebulaGlow 3s ease-in-out infinite;
+}
+
+@keyframes nebulaGlow {
+    0%, 100% { 
+        border-color: var(--nebula-blue);
+        box-shadow: 0 0 20px rgba(22, 33, 62, 0.5);
+    }
+    50% { 
+        border-color: var(--lightsaber-blue);
+        box-shadow: 0 0 40px rgba(0, 191, 255, 0.6);
+    }
+}
+
+.lightsaber-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--lightsaber-blue);
+    box-shadow: 
+        0 0 50px rgba(0, 191, 255, 0.4),
+        0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Section Titles for Lightsaber Theme */
+.lightsaber-card .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.2rem;
+    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-green));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+.lightsaber-card .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--lightsaber-blue), var(--lightsaber-green));
+    animation: saberUnderline 2s ease-out forwards;
+}
+
+@keyframes saberUnderline {
+    to { width: 100%; }
+}
+
+/* Lightsaber Icons */
+.lightsaber-icon {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    animation: iconGlow 2s ease-in-out infinite alternate;
+}
+
+.lightsaber-icon:nth-child(1) { 
+    color: var(--lightsaber-blue);
+    animation-delay: 0s;
+}
+.lightsaber-icon:nth-child(2) { 
+    color: var(--lightsaber-yellow);
+    animation-delay: 0.5s;
+}
+.lightsaber-icon:nth-child(3) { 
+    color: var(--lightsaber-green);
+    animation-delay: 1s;
+}
+.lightsaber-icon:nth-child(4) { 
+    color: var(--lightsaber-purple);
+    animation-delay: 1.5s;
+}
+
+@keyframes iconGlow {
+    0% { 
+        filter: drop-shadow(0 0 8px currentColor);
+        transform: scale(1);
+    }
+    100% { 
+        filter: drop-shadow(0 0 15px currentColor);
+        transform: scale(1.1);
+    }
+}
+
+.lightsaber-icon:hover {
+    color: var(--lightsaber-white);
+    transform: scale(1.3) rotate(180deg);
+    filter: drop-shadow(0 0 20px currentColor);
+}
+
+/* Timeline for Lightsaber Theme */
+.lightsaber-card .timeline-year {
+    background: linear-gradient(45deg, var(--lightsaber-blue), var(--lightsaber-yellow));
+    color: var(--space-black);
+    border: 2px solid var(--lightsaber-white);
+    box-shadow: 0 0 15px rgba(0, 191, 255, 0.5);
+    font-family: 'Orbitron', monospace;
+}
+
+.lightsaber-card .timeline-year:hover {
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.8);
+}
+
+.lightsaber-card .timeline-content {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 191, 255, 0.3);
+}
+
+.lightsaber-card .timeline-content:hover {
+    border-color: var(--lightsaber-blue);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+}
+
+.lightsaber-card .timeline-title {
+    color: var(--lightsaber-blue);
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+    font-family: 'Orbitron', monospace;
+}
+
+.lightsaber-card .timeline-description {
+    font-family: 'Exo 2', sans-serif;
+    color: var(--star-silver);
+}
+
+/* Decorative Elements */
+.decorative-force {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: var(--lightsaber-blue);
+    opacity: 0.4;
+    animation: forceEnergy 3s infinite;
+}
+
+@keyframes forceEnergy {
+    0%, 100% { 
+        opacity: 0.4; 
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 10px var(--lightsaber-blue));
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.3) rotate(180deg);
+        filter: drop-shadow(0 0 20px var(--lightsaber-blue));
+    }
+}
+
+.saber-icon {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: var(--lightsaber-yellow);
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: saberSpin 8s linear infinite;
+}
+
+@keyframes saberSpin {
+    from { 
+        transform: rotate(0deg); 
+        filter: drop-shadow(0 0 10px var(--lightsaber-yellow));
+    }
+    to { 
+        transform: rotate(360deg); 
+        filter: drop-shadow(0 0 15px var(--lightsaber-yellow));
+    }
+}
+
+/* Sekcja zdjęcia */
+.image-section {
+    text-align: center;
+    margin: 2rem 0;
+    position: relative;
+}
+
+/* Lightsaber Image */
+.lightsaber-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    border: 3px solid var(--lightsaber-blue);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(0, 191, 255, 0.4),
+        0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.lightsaber-image:hover {
+    transform: scale(1.05);
+    border-color: var(--lightsaber-white);
+    box-shadow: 
+        0 0 30px rgba(0, 191, 255, 0.6),
+        0 0 50px rgba(255, 255, 255, 0.3),
+        0 15px 40px rgba(0, 0, 0, 0.7);
+}
+
+/* Sekcja opisu */
+.description-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.description-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--star-silver);
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideInLeft 500ms ease-out 500ms forwards;
+    font-family: 'Exo 2', sans-serif;
+}
+
+@keyframes slideInLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Timeline Component */
+.timeline-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: timelineAppear 0.8s ease-out forwards;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    animation-delay: 0.2s;
+}
+
+.timeline-item:nth-child(odd) {
+    animation-delay: 0.4s;
+}
+
+@keyframes timelineAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-year {
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    min-width: 100px;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    transition: all 0.3s ease;
+}
+
+.timeline-year:hover {
+    transform: scale(1.1);
+}
+
+.timeline-year::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 3px;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-year::before {
+    right: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-year::before {
+    left: -20px;
+}
+
+.timeline-content {
+    flex: 1;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    margin: 0 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    left: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    right: -20px;
+}
+
+.timeline-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.timeline-description {
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Gallery Component */
+.gallery-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(0, 191, 255, 0.3);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    animation: galleryItemAppear 0.6s ease-out forwards;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
+.gallery-item:nth-child(5) { animation-delay: 0.5s; }
+.gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes galleryItemAppear {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--lightsaber-blue);
+    box-shadow: 0 0 20px rgba(0, 191, 255, 0.4);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: var(--lightsaber-white);
+    padding: 2rem 1.5rem 1.5rem;
+    transform: translateY(100%);
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-caption {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--lightsaber-blue);
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 191, 255, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline-item {
+        flex-direction: column !important;
+        align-items: center;
+        padding: 0;
+        text-align: center;
+    }
+    
+    .timeline-item:nth-child(even) {
+        flex-direction: column !important;
+        align-items: center;
+    }
+    
+    .timeline-year {
+        position: relative;
+        left: auto;
+        min-width: 100px;
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        z-index: 3;
+    }
+    
+    .timeline-year::before {
+        display: none;
+    }
+    
+    .timeline-year::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        width: 3px;
+        height: 15px;
+        transform: translateX(-50%);
+    }
+    
+    .timeline-content {
+        margin: 0;
+        width: calc(100% - 2rem);
+        max-width: 400px;
+    }
+    
+    .timeline-content::before {
+        display: none;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .gallery-image {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-content {
+        width: calc(100% - 1rem);
+        padding: 1.5rem;
+    }
+    
+    .timeline-year {
+        min-width: 80px;
+        font-size: 1rem;
+        padding: 0.8rem 1.2rem;
+    }
+    
+    .timeline-title {
+        font-size: 1.3rem;
+    }
+    
+    .timeline-description {
+        font-size: 0.95rem;
+    }
+}

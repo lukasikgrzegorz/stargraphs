@@ -32,7 +32,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
     <>
       <button 
         onClick={() => setIsOpen(true)}
-        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors flex items-center gap-3 font-medium cursor-pointer"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-lg transition-colors flex items-center gap-3 font-medium cursor-pointer font-sans text-base"
         aria-label="Share Star Graph"
       >
         <i className="bi bi-share text-[20px]"></i>
@@ -41,12 +41,12 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
 
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 font-sans text-base"
           style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
         >
-          <div className="bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl border border-slate-700 relative">
+          <div className="bg-slate-800 rounded-xl p-6 w-full max-w-md shadow-2xl border border-slate-700 relative font-sans">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-white">Share Star Graph</h3>
+              <h3 className="text-xl font-semibold text-white font-sans">Share Star Graph</h3>
               <button 
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-white transition-colors"
@@ -88,7 +88,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
               </div>
 
               {/* Labels */}
-              <div className="flex justify-center gap-4 text-sm text-gray-400">
+              <div className="flex justify-center gap-4 text-sm text-gray-400 font-sans">
                 <span>Facebook</span>
                 <span>LinkedIn</span>
                 <span>Instagram</span>
@@ -96,7 +96,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
 
               {/* Copy Link Section */}
               <div className="mt-6 pt-4 border-t border-slate-700">
-                <label htmlFor="share-url" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="share-url" className="block text-sm font-medium text-gray-300 mb-2 font-sans">
                   Or copy link:
                 </label>
                 <div className="flex gap-2">
@@ -105,11 +105,11 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
                     type="text"
                     value={url}
                     readOnly
-                    className="flex-1 bg-slate-700 text-white px-3 py-2 rounded-lg text-sm border border-slate-600 focus:border-blue-500 focus:outline-none"
+                    className="flex-1 bg-slate-700 text-white px-3 py-2 rounded-lg text-sm border border-slate-600 focus:border-blue-500 focus:outline-none font-sans"
                   />
                   <button
                     onClick={copyToClipboard}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors font-sans ${
                       copied 
                         ? 'bg-green-600 text-white' 
                         : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -122,7 +122,7 @@ export default function ShareModal({ url, title, description }: ShareModalProps)
 
               {/* Instagram Instructions */}
               <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 font-sans">
                   <i className="bi bi-info-circle mr-1"></i>
                   For Instagram: Copy the link and paste it in your Instagram story or bio
                 </p>

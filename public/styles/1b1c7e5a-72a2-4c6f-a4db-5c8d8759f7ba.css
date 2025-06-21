@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap');
 
 :root {
     --oscar-gold: #FFD700;
@@ -555,42 +555,55 @@ main::before {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .timeline::before {
-        left: 30px;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     .timeline-item {
         flex-direction: column !important;
-        align-items: flex-start;
-        padding-left: 60px;
+        align-items: center;
+        padding: 0;
+        text-align: center;
     }
     
     .timeline-item:nth-child(even) {
         flex-direction: column !important;
+        align-items: center;
     }
     
     .timeline-year {
-        position: absolute;
-        left: -45px;
-        min-width: 80px;
-        font-size: 1rem;
-        padding: 0.8rem 1rem;
+        position: relative;
+        left: auto;
+        min-width: 100px;
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1rem;
+        z-index: 3;
     }
     
     .timeline-year::before {
-        right: -20px;
-        left: auto;
+        display: none;
+    }
+    
+    .timeline-year::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        width: 3px;
+        height: 15px;
+        background: var(--oscar-gold);
+        transform: translateX(-50%);
     }
     
     .timeline-content {
         margin: 0;
-        width: 100%;
+        width: calc(100% - 2rem);
+        max-width: 400px;
     }
     
     .timeline-content::before {
-        left: -20px;
-        right: auto;
-        border-right-color: rgba(255, 215, 0, 0.2);
-        border-left-color: transparent;
+        display: none;
     }
     
     .photo-gallery {
@@ -600,5 +613,26 @@ main::before {
     
     .gallery-image {
         height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-content {
+        width: calc(100% - 1rem);
+        padding: 1.5rem;
+    }
+    
+    .timeline-year {
+        min-width: 80px;
+        font-size: 1rem;
+        padding: 0.8rem 1.2rem;
+    }
+    
+    .timeline-title {
+        font-size: 1.3rem;
+    }
+    
+    .timeline-description {
+        font-size: 0.95rem;
     }
 }

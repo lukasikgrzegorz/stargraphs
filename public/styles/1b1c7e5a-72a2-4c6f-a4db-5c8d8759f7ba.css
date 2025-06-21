@@ -63,7 +63,7 @@ main::before {
 /* Header z animowanym gradientem */
 .oscar-header {
     text-align: center;
-    padding: 4rem 0;
+    padding: 1rem 0;
     position: relative;
     overflow: hidden;
 }
@@ -240,7 +240,7 @@ main::before {
     margin-bottom: 2rem;
     opacity: 0;
     transform: translateX(-20px);
-    animation: slideInLeft 1s ease-out 1s forwards;
+    animation: slideInLeft 500ms ease-out 500ms forwards;
 }
 
 @keyframes slideInLeft {
@@ -339,4 +339,266 @@ main::before {
 @keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+}
+
+/* Timeline Component */
+.timeline-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: timelineAppear 0.8s ease-out forwards;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+    animation-delay: 0.2s;
+}
+
+.timeline-item:nth-child(odd) {
+    animation-delay: 0.4s;
+}
+
+@keyframes timelineAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-year {
+    background: linear-gradient(45deg, var(--oscar-gold), var(--oscar-dark-gold));
+    color: var(--oscar-black);
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    min-width: 100px;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.timeline-year:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+}
+
+.timeline-year::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 3px;
+    background: var(--oscar-gold);
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-year::before {
+    right: -20px;
+}
+
+.timeline-item:nth-child(even) .timeline-year::before {
+    left: -20px;
+}
+
+.timeline-content {
+    flex: 1;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 15px;
+    margin: 0 2rem;
+    position: relative;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.timeline-content:hover {
+    transform: translateY(-5px);
+    border-color: var(--oscar-gold);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    left: -20px;
+    border-right-color: rgba(255, 215, 0, 0.2);
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    right: -20px;
+    border-left-color: rgba(255, 215, 0, 0.2);
+}
+
+.timeline-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--oscar-gold);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.timeline-description {
+    color: var(--oscar-light-gray);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* Gallery Component */
+.gallery-section {
+    margin: 3rem 0;
+    position: relative;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    animation: galleryItemAppear 0.6s ease-out forwards;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
+.gallery-item:nth-child(5) { animation-delay: 0.5s; }
+.gallery-item:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes galleryItemAppear {
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px) scale(1.03);
+    border-color: var(--oscar-gold);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+}
+
+.gallery-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: var(--oscar-white);
+    padding: 2rem 1.5rem 1.5rem;
+    transform: translateY(100%);
+    transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-caption {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--oscar-gold);
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-item {
+        flex-direction: column !important;
+        align-items: flex-start;
+        padding-left: 60px;
+    }
+    
+    .timeline-item:nth-child(even) {
+        flex-direction: column !important;
+    }
+    
+    .timeline-year {
+        position: absolute;
+        left: -45px;
+        min-width: 80px;
+        font-size: 1rem;
+        padding: 0.8rem 1rem;
+    }
+    
+    .timeline-year::before {
+        right: -20px;
+        left: auto;
+    }
+    
+    .timeline-content {
+        margin: 0;
+        width: 100%;
+    }
+    
+    .timeline-content::before {
+        left: -20px;
+        right: auto;
+        border-right-color: rgba(255, 215, 0, 0.2);
+        border-left-color: transparent;
+    }
+    
+    .photo-gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .gallery-image {
+        height: 280px;
+    }
 }

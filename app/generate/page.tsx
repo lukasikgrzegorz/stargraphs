@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from 'uuid';
 import Link from "next/link";
@@ -45,6 +45,7 @@ export default function GeneratePage() {
   const [isLoadingTemplates, setIsLoadingTemplates] = useState(true);
   const [templatesError, setTemplatesError] = useState<string | null>(null);
   const [stars, setStars] = useState<React.CSSProperties[]>([]);
+  const statusSectionRef = useRef<HTMLDivElement>(null);
 
   // Generowanie animowanych gwiazd
   useEffect(() => {
@@ -137,6 +138,14 @@ export default function GeneratePage() {
     const id = uuidv4();
     setInfographicId(id);
     setStatus('STARTED');
+
+    // Scroll to status section
+    setTimeout(() => {
+      statusSectionRef.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 100);
 
     try {
       // Call local API endpoint instead of direct webhook
@@ -344,7 +353,12 @@ export default function GeneratePage() {
 
                 {/* Generation Status */}
                 {status !== 'IDLE' && (
-                  <div className="bg-white rounded-lg p-6 mb-8 shadow-xl border border-gray-200" role="status" aria-live="polite">
+                  <div 
+                    ref={statusSectionRef}
+                    className="bg-white rounded-lg p-6 mb-8 shadow-xl border border-gray-200" 
+                    role="status" 
+                    aria-live="polite"
+                  >
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-semibold mb-2 text-black">Generation Status</h3>

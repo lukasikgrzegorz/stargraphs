@@ -142,13 +142,13 @@ export default function Home() {
           </div>
           
           <div className="lg:w-1/2 flex justify-center">
-            <div className="w-[800px] h-[500px] relative">
+            <div className="w-[95vw] h-[400px] md:h-[550px] relative">
               <Image 
                 src="/hero.png" 
                 alt="Star Graphs visualization example" 
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                sizes="(max-width: 768px) 95vw, (max-width: 1200px) 500px, 800px"
                 className="rounded-lg shadow-2xl transition-all duration-500 animate-float object-contain"
               />
             </div>

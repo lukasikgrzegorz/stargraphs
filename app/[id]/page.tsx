@@ -73,11 +73,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         )}
         
         {/* Add icon library CSS */}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css
-
-
-
-" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" />
         
         <div 
           className="w-full h-full"
@@ -88,6 +84,30 @@ export default async function Page({ params, searchParams }: PageProps) {
         <footer className="relative border-t border-slate-700 py-8 w-full font-sans text-base">
           <div className="absolute inset-0 bg-slate-800/80 backdrop-blur-sm" aria-hidden="true"></div>
           <div className="relative w-full m-auto px-6 text-center">
+            {/* Data sources */}
+            <div className="mb-4">
+              <p className="text-gray-500 text-xs font-sans">
+                Data sourced from{' '}
+                <a 
+                  href="https://www.themoviedb.org/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  TMDB
+                </a>
+                {' '}and{' '}
+                <a 
+                  href="https://www.wikipedia.org/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-blue-400 transition-colors"
+                >
+                  Wikipedia
+                </a>
+              </p>
+            </div>
+            
             {/* Action buttons */}
             <div className="flex justify-center gap-6 mb-6">
               <ShareModal 

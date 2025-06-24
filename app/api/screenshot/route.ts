@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         url,
-        footerCut: footerCut || 160
+        footerCut: footerCut || 170
       })
     })
 

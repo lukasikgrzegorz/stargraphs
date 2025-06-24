@@ -47,7 +47,7 @@ export default function Home() {
         setRecentGraphs(data as Infographic[]);
       } catch (err) {
         console.error('Błąd pobierania infografik:', err);
-        setError('Nie udało się załadować najnowszych grafów');
+        setError('Failed to load recent graphs');
       } finally {
         setIsLoading(false);
       }
@@ -126,10 +126,10 @@ export default function Home() {
             </h1>
             
             <p className="text-lg md:text-xl text-gray-300 text-center lg:text-left max-w-xl">
-            A long time ago, in a galaxy not so far away, on the planet SPAM...
-            Tiny good spirits searched through Internet junk, trying to build something meaningful.
-            Big fans of Hollywood, they craft eye-catching infographics about movies and stars.
-            Dare to ask them for content?
+              A long time ago, in a galaxy not so far away, on the planet SPAM...
+              Tiny good spirits searched through Internet junk, trying to build something meaningful.
+              Big fans of Hollywood, they craft eye-catching infographics about movies and stars.
+              Dare to ask them for content?
             </p>
             
             <Link 
@@ -184,7 +184,7 @@ export default function Home() {
                   onClick={() => window.location.reload()}
                   className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
                 >
-                  Odśwież stronę
+                  Refresh page
                 </button>
               </div>
             ) : recentGraphs.length > 0 ? (
@@ -239,13 +239,13 @@ export default function Home() {
             ) : (
               // Brak infografik
               <div className="md:col-span-3 text-center p-8 bg-purple-100 text-purple-700 rounded-lg">
-                <p className="text-xl font-medium">Brak infografik do wyświetlenia</p>
-                <p className="mt-2">Bądź pierwszym, który stworzy Star Graph!</p>
+                <p className="text-xl font-medium">No infographics to display</p>
+                <p className="mt-2">Be the first to create a Star Graph!</p>
                 <Link
                   href="/generate"
                   className="mt-4 inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
                 >
-                  Stwórz pierwszy Star Graph
+                  Create first Star Graph
                 </Link>
               </div>
             )}
@@ -285,7 +285,14 @@ export default function Home() {
           <p className="font-bold mb-2">
             Star Graphs does not collect any cookies. Your data stays in a galaxy far, far away.
           </p>
-          <p>© 2025 AI.vertics</p>
+          <p>© 2025 <Link 
+            href="https://aivertics.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-purple-400 hover:text-purple-300 transition-colors duration-200 font-bold"
+          >
+            AI.Vertics
+          </Link></p>
         </footer>
       </div>
       

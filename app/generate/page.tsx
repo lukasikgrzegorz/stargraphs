@@ -313,7 +313,20 @@ export default function GeneratePage() {
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr" role="radiogroup">
                         {isLoadingTemplates ? (
                           // Skeleton loading dla szablonów
-                          <div className="text-center text-gray-500">Loading styles...</div>
+                          Array(3).fill(0).map((_, index) => (
+                            <div 
+                              key={index} 
+                              className="p-4 rounded-lg border-2 border-gray-200 bg-gray-50 animate-pulse flex flex-col justify-start h-full"
+                              aria-hidden="true"
+                            >
+                              <div className="h-6 bg-gray-200 rounded mb-3 w-3/4"></div>
+                              <div className="space-y-2 flex-1">
+                                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                                <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                              </div>
+                            </div>
+                          ))
                         ) : (
                           templates.map((template) => (
                             <button
@@ -421,7 +434,14 @@ export default function GeneratePage() {
           <p className="font-bold mb-2">
             Star Graphs does not collect any cookies. Your data stays in a galaxy far, far away.
           </p>
-          <p>© 2025 AI.vertics</p>
+          <p>© 2025 <Link 
+            href="https://aivertics.vercel.app/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-purple-400 hover:text-purple-300 transition-colors duration-200 font-bold"
+          >
+            AI.Vertics
+          </Link></p>
         </footer>
       </main>
 

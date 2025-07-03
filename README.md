@@ -87,13 +87,6 @@ Star Graphs follows privacy-first principles:
 - **No personal data storage** - Data is processed but not stored
 - **Transparency** - Clear information about what data is used and why
 
-## 🌟 Examples
-
-Check out example infographics:
-- [Star Wars](http://localhost:3000/infographic/star-wars-example)
-- [Blade Runner](http://localhost:3000/infographic/blade-runner-example)
-- [Matrix](http://localhost:3000/infographic/matrix-example)
-
 ## 🤝 Contributing
 
 We welcome any contribution to the project development! Here's how you can help:

@@ -1,0 +1,1125 @@
+{
+  "name": "StarGraphs",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "98f4dd43-e612-481f-a3e2-14e4479671a7",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1180,
+        -220
+      ],
+      "id": "7905023b-a327-4913-95a7-4d1abfc12edd",
+      "name": "Webhook",
+      "webhookId": "98f4dd43-e612-481f-a3e2-14e4479671a7"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        100,
+        0
+      ],
+      "id": "51fd7b0e-4a9b-43db-9141-7a4de0273e83",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "oFjs2EqB6hViLKPG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Classification",
+        "height": 1740,
+        "width": 880,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -920
+      ],
+      "id": "476f9009-8afa-4b65-9db6-f36b4e93cf25",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.text }}",
+                    "rightValue": "PERSON",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "e7c155a8-cb2a-44d9-bab7-cc2efb9a5790"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Person"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "670b27d7-9d6b-4d5a-a90d-62c070ab01e4",
+                    "leftValue": "={{ $json.text }}",
+                    "rightValue": "TITLE",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Title"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f50facc6-8e62-461b-a10f-b163bf1ad75a",
+                    "leftValue": "={{ $json.text }}",
+                    "rightValue": "SPAM",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Other"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        360,
+        -220
+      ],
+      "id": "a5f913d2-66e2-44d2-b210-95e297fcbb99",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "content": "# Downloading and combining data\n",
+        "height": 1740,
+        "width": 1540
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        920,
+        -920
+      ],
+      "id": "bda97b1e-a073-4981-94b2-c640d37bad44",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17fc6e15-5468-4d4a-957a-439d9316308b",
+              "leftValue": "={{ $json.total_results }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1220,
+        320
+      ],
+      "id": "fb011b92-dc91-416f-9734-9fd35b2548cc",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17fc6e15-5468-4d4a-957a-439d9316308b",
+              "leftValue": "={{ $json.total_results }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1160,
+        -640
+      ],
+      "id": "955ba8eb-e451-4f56-9368-111d2b78d2de",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "content": "# Content building",
+        "height": 1740,
+        "width": 1200,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        -920
+      ],
+      "id": "c119c672-7ece-427b-a066-13adf92b27f2",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2920,
+        -220
+      ],
+      "id": "d8008407-8a77-4e0b-aafa-47788c15cc12",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "oFjs2EqB6hViLKPG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2900,
+        180
+      ],
+      "id": "fb3a8885-bccd-4939-927c-b8ae42563283",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "oFjs2EqB6hViLKPG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Query analysis",
+        "height": 1740,
+        "width": 840,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        -920
+      ],
+      "id": "364e497d-be68-4f99-8edf-4d9f5afe16e6",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -700,
+        -20
+      ],
+      "id": "9cabc746-5d59-4eb8-b622-8390ed900e96",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "oFjs2EqB6hViLKPG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.query }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Jesteś analizatorem odpowiedzi. \nMasz sprawdzić czy zapytanie użytkownika nie zawiera błędów.\nBędziesz otrzymywać informacje o aktorach i tytułach filmów.\nZwracaj uwagę na poprawność, czy nie ma literówek, przekręconych nazwisk.\nSprawdzaj uwagę na wielkość liter, pamiętaj że mają zaczynać z wielkich liter, to samo przy tytułach filmów.\nSprawdzaj uwagę na spacje.\n\nPrzykład działania:\nstar wars - zwracasz Star Wars\npetro pascal - zwracasz Pedroo Pascal\nStanleyKubrick - zwracasz StanleyKubrick\n\nWAŻNE: POMIŃ SWOJE KOMENTARZE"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        -820,
+        -220
+      ],
+      "id": "9a1d7f65-ff93-4f30-bb73-14e8c505cada",
+      "name": "Improving query content"
+    },
+    {
+      "parameters": {
+        "tableId": "infographics",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "id",
+              "fieldValue": "={{ $('Webhook').item.json.body.id }}"
+            },
+            {
+              "fieldId": "user_query",
+              "fieldValue": "={{ $json.text }}"
+            },
+            {
+              "fieldId": "template_id",
+              "fieldValue": "={{ $('Webhook').item.json.body.template_id }}"
+            },
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "STARTED"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -220
+      ],
+      "id": "8e59044a-60cc-4e43-b78a-957b723e064c",
+      "name": "Saving initial information to the database",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Improving query content').item.json.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Jesteś klasyfikatorem odpowiedzi. Masz zdecydować czy fraza użytkownika to: - osoba - zwracasz PERSON - tytuł filmu - zwracasz słowo TITLE - jeśli nie pasuje do kategorii zwróć słowo SPAM  Pomiń zbędne komentarze."
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        20,
+        -220
+      ],
+      "id": "39efe072-85f8-4889-9ea2-a4c683b5c85a",
+      "name": "Classifier"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.themoviedb.org/3/search/person?api_key=ba9435622413df35cd8d080b147a1f2b&query={{ $('Improving query content').item.json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1000,
+        -640
+      ],
+      "id": "734a8fd9-bd93-4ee1-b49d-6c795a603c01",
+      "name": "Person data from TMDB"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "infographics",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "NOCATEGORY"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        360,
+        40
+      ],
+      "id": "022c92fc-924a-4302-a1e4-27b05c7d92f3",
+      "name": "Update status if the query is SPAM",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "infographics",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "=PERSONNOTFOUND"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        -400
+      ],
+      "id": "5649d42e-895b-4222-a1a2-4546cf933acf",
+      "name": "Update status if person not found",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// for (const item of $input.all()) {\n//   item.json.myNewField = 1;\n// }\n\n// return $input.all();\n\nconst results = $input.first().json.results\n\n// Posortuj po popularności malejąco\nresults.sort((a, b) => b.popularity - a.popularity);\n\n// Zwróć tylko pierwszy (najbardziej popularny)\nreturn [\n  {\n    json: {\n      item: results[0]\n  }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        -660
+      ],
+      "id": "ee0ee74b-0973-4e34-b997-cba89346a0aa",
+      "name": "Filtering people by popularity"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results1 = $('Filtering people by popularity').first().json.item\nconst results2 = $input.first().json.query\n\n\nconst dataString = JSON.stringify({\n  item1: results1,\n  item2: results2\n});\n\n\nreturn [\n  {\n    json: {\n      item: dataString\n  }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1860,
+        -660
+      ],
+      "id": "4496b268-b119-4802-8938-07f4bc70eb15",
+      "name": "Combining person data"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Combining person data').item.json.item }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Wciel sie w dośiwadczonego content creatora ze znajomością HTML.\nOtrzymasz od użytkownika dane, według któych masz zubodwać inforgrafikę w JĘZYKU ANGIESLKIM.\n\n#Szablon z któego masz skorzystać to:\n{{ $json.content }} \n\n#Zasady:\n-Możesz zmieniać tylko pola-zaślepki odpowiednio zaznaczone w [[nazwa_pola]].\n-Korzystaj z komponentów podanych w szablonie.\n-Możesz korzystać z Bootstrap Icons.\n-Pomiń zbędne uwagi.\n-Nigdy znie zwracaj ```html ``` Te znaki są zbędne. Zwróć tylko kod html.\n-Inforgrafika w sekcji content powinna mieć conajmniej 14 koponentów.\n\n\nPrzykład: [[nazwa_pola]] zamieniasz na WARTOŚĆ\n\n#Wskazówki do doboru treści:\n-Wiek\n-Wzrost - ciekawe i zabawne\n-Narodowość\n-Pochodzenie\n-Wykształcenie\n-Języki, którymi się posługuje \n-Znak zodiaku\n-Orientacja seksualna\n-Małżeństwa i relacje romantyczne\n-Rodzicielstwo i dzieci (ze związku, z poza związku, adoptowane)\n-Pokrewieństwo z innymi gwiazdami\n-Skandale i kontrowersje\n-Incydenty medialne\n-Wpadki\n-Reakcje aktora/otoczenia na skandale/kontrowersje\n-Status zawodowy\n-Wykształcenie aktorskie/szkoły teatralne\n-Pierwsze role/debiut\n-Przełomowe momenty kariery\n-Mentorzy i wpływy\n-Agenci i menedżerowie\n-Współpraca z konkretnymi reżyserami/studiami\n-Typowe role/amplua\n-Metody aktorskie i przygotowanie do ról\n-Pieniądze i sukces\n-Droga do sukcesu\n-Wynagrodzenia za role (w tym najwyższe i najniższe)\n-Zarobki z innych źródeł\n-Majątek\n-Rankingi najbogatszych\n-Potencjalne darowizny charytatywne lub zaangażowanie w filantropię\n-Tytuły w których grał\n-Osiągnięcia zawodowe\n-Lista nagród i nominacji\n-Wygląd i styl\n-Nietypowe zainteresowania i fobie, a także pasje i ciekawostki\n-Zaangażowanie społeczne i wartości\n\n#Ikony bootstrap z których możesz korzystać:\ncamera\ncamera-video\ncassette\ndisplay\nfilm\nplay\npause\nstop\nrecord\nrecord-circle\nrecord-circle-fill\nvolume-up\nvolume-down\nvolume-mute\nheadset\nspeaker\ntv\nperson\npeople\nchat\nchat-square\nchat-left\nchat-right\nstar\nheart\naward\ntrophy\nflag\ncalendar\nclock\nalarm\nstop-watch\narrow-right\narrow-left\narrow-up\narrow-down\nchevron-right\nchevron-left\nchevron-up\nchevron-down\nplus\nplus-circle\nplus-square\ncheck\ncheck-circle\nx-circle\nmenu\nsearch\nbadge-hd\n\nWAŻNE: TREŚCI MA BYĆ W JĘZYKU ANGIELSKIM\nWAŻNE: NIE POKAZUJEMY OBRAZKÓW Z WIKIMEDIA\nWAŻNE: NIE MOŻESZ KORZYSTAĆ Z IKON bi-ruler bi-film-fill\nWAŻNE: URL DO WSZYSTKICH OBRAZKÓW ZAWSZE ZACZYNA SIĘ OD https://image.tmdb.org/t/p/w500\nWAŻNE: BIERZ POD UWAGĘ TYLKO URL PODANE Z JSON JAKO poster_path, jeśli nie ma takiego obrazka to nie twórz elementu listy obrazkowej"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        2980,
+        -380
+      ],
+      "id": "46f2e938-d1e0-4b28-857b-74c19100a56d",
+      "name": "Construction of template content for person"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "templates",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $('Webhook').item.json.body.template_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        -380
+      ],
+      "id": "138b94d7-4ce3-4ec5-848d-d24aa6ba341f",
+      "name": "Download template data for person",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "infographics",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "content",
+              "fieldValue": "={{ $json.text }}"
+            },
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "READY"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3420,
+        -380
+      ],
+      "id": "29724faf-b24f-4ebd-9e54-aee14fa50123",
+      "name": "Saving the content of the infographic for person",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.themoviedb.org/3/search/movie?api_key=ba9435622413df35cd8d080b147a1f2b&query={{ $('Improving query content').item.json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1020,
+        320
+      ],
+      "id": "e5d994b4-87d6-425d-8f9c-4a06bae165e6",
+      "name": "Movie data from TMDB"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "infographics",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "=MOVIENOTFOUND"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        560
+      ],
+      "id": "e244f2bc-ba96-4914-ba87-dff3f7c5dbfa",
+      "name": "Update status if video not found",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n// for (const item of $input.all()) {\n//   item.json.myNewField = 1;\n// }\n\n// return $input.all();\n\nconst results = $input.first().json.results\n\n// Posortuj po popularności malejąco\nresults.sort((a, b) => b.popularity - a.popularity);\n\n// Zwróć tylko pierwszy (najbardziej popularny)\nreturn [\n  {\n    json: {\n      item: results[0]\n  }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        300
+      ],
+      "id": "db8d0792-3cc8-4771-beed-fa6a2ef65d2a",
+      "name": "Filtering movies by popularity"
+    },
+    {
+      "parameters": {
+        "jsCode": "const genre_map = {\n    28: \"Action\",\n    12: \"Adventure\",\n    16: \"Animation\",\n    35: \"Comedy\",\n    80: \"Crime\",\n    99: \"Documentary\",\n    18: \"Drama\",\n    10751: \"Family\",\n    14: \"Fantasy\",\n    36: \"History\",\n    27: \"Horror\",\n    10402: \"Music\",\n    9648: \"Mystery\",\n    10749: \"Romance\",\n    878: \"Science Fiction\",\n    10770: \"TV Movie\",\n    53: \"Thriller\",\n    10752: \"War\",\n    37: \"Western\"\n}\n\nconst movie = $input.first().json.item\n\nmovie.genre_ids = movie.genre_ids.map(id => genre_map[id] || \"\")\n\n\n\nreturn [\n  {\n    json: {\n      item: movie\n  }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1620,
+        300
+      ],
+      "id": "069d5a5d-cf98-4ce7-a543-d0bf752bf0e6",
+      "name": "Reading movie genres"
+    },
+    {
+      "parameters": {
+        "url": "=https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=1&titles={{ $('Improving query content').item.json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1820,
+        300
+      ],
+      "id": "7eba0519-ca9a-4187-8ee5-9ee072f8e28c",
+      "name": "Movie data from Wik"
+    },
+    {
+      "parameters": {
+        "url": "=https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&explaintext=1&titles={{ $('Improving query content').item.json.text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1640,
+        -660
+      ],
+      "id": "9136ef0b-9615-462b-a1cb-ff4a73e29c7f",
+      "name": "Person data from Wiki"
+    },
+    {
+      "parameters": {
+        "jsCode": "const results1 = $('Filtering movies by popularity').first().json.item\nconst results2 = $input.first().json.query\n\n\nconst dataString = JSON.stringify({\n  item1: results1,\n  item2: results2\n});\n\n\nreturn [\n  {\n    json: {\n      item: dataString\n  }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2040,
+        300
+      ],
+      "id": "2ea43caf-70fe-404e-9ecb-27ff364cfe2f",
+      "name": "Combining movie data"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "templates",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "keyValue": "={{ $('Webhook').item.json.body.template_id }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        2680,
+        20
+      ],
+      "id": "899947ce-89a4-482b-b11f-31b8ad9d5151",
+      "name": "Download template data for movie",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Combining movie data').item.json.item }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Wciel sie w dośiwadczonego content creatora ze znajomością HTML.\nOtrzymasz od użytkownika dane, według któych masz zubodwać inforgrafikę w JĘZYKU ANGIESLKIM.\n\n#Szablon z któego masz skorzystać to:\n{{ $json.content }} \n\n#Zasady:\n-Możesz zmieniać tylko pola-zaślepki odpowiednio zaznaczone w [[nazwa_pola]].\n-Korzystaj z komponentów podanych w szablonie.\n-Możesz korzystać z Bootstrap Icons.\n-Pomiń zbędne uwagi.\n-Nigdy znie zwracaj ```html ``` Te znaki są zbędne. Zwróć tylko kod html.\n-Inforgrafika w sekcji content powinna mieć conajmniej 14 koponentów.\n\n\nPrzykład: [[nazwa_pola]] zamieniasz na WARTOŚĆ\n\n#Wskazówki do doboru treści:\n-Creditsy Twórcy filmu\n-Sound track\n-Oceny i recenzje \n-Nagrody i nominacje\n-Premiery\n-Fabuła i inspiracje\n-Motywy przewodnie i symbolika w filmie\n-Lokalizacje i kulisy produkcji \n-Ciekawostki\n-Fun facts\n-Koszty produkcji/Budżet\n-Wyniki finansowe\n-Zasięg i wpływ filmu:\n-Wyniki box office\n-Kultura fanowska, fandomy\n-Adaptacje\n-Viralowe kampanie/trailery/kontrowersyjne plakaty\n-Przeszkody w produkcji / Za kulisami\n-Aspekty prawne i obyczajowe/Kontrowersje kulturowe\n-Odbiór społeczny i krytyczny\n-Technikalia produkcji\n\n#Ikony bootstrap z których możesz korzystać:\ncamera\ncamera-video\ncassette\ndisplay\nfilm\nplay\npause\nstop\nrecord\nrecord-circle\nrecord-circle-fill\nvolume-up\nvolume-down\nvolume-mute\nheadset\nspeaker\ntv\nperson\npeople\nchat\nchat-square\nchat-left\nchat-right\nstar\nheart\naward\ntrophy\nflag\ncalendar\nclock\nalarm\nstop-watch\narrow-right\narrow-left\narrow-up\narrow-down\nchevron-right\nchevron-left\nchevron-up\nchevron-down\nplus\nplus-circle\nplus-square\ncheck\ncheck-circle\nx-circle\nmenu\nsearch\nbadge-hd\n\n\nWAŻNE: TREŚCI MA BYĆ W JĘZYKU ANGIELSKIM\nWAŻNE: JEŚLI MASZ MAŁO ZDJĘĆ NA PRZYKŁAD TYLKO JEDNO UNIKAJ UŻYWANIA KOMPONENTÓW ZE ZDJĘCIAMI\nWAŻNE: NIE POKAZUJEMY OBRAZKÓW Z WIKIMEDIA\nWAŻNE: NIE MOŻESZ KORZYSTAĆ Z IKON bi-ruler bi-film-fill\nWAŻNE: URL DO WSZYSTKICH OBRAZKÓW ZAWSZE ZACZYNA SIĘ OD https://image.tmdb.org/t/p/w500\nWAŻNE: BIERZ POD UWAGĘ TYLKO URL PODANE Z JSON JAKO poster_path, jeśli nie ma takiego obrazka to nie twórz elementu listy obrazkowej"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.6,
+      "position": [
+        2980,
+        20
+      ],
+      "id": "8d985b4e-0a7a-4669-895a-2ed821fbc451",
+      "name": "Construction of template content for movie"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "tableId": "infographics",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "id",
+              "condition": "eq",
+              "keyValue": "={{ $('Webhook').item.json.body.id }}"
+            }
+          ]
+        },
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "content",
+              "fieldValue": "={{ $json.text }}"
+            },
+            {
+              "fieldId": "generation_status",
+              "fieldValue": "READY"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        3420,
+        20
+      ],
+      "id": "3eab00d4-36b4-439d-93f9-c0e948b04dd4",
+      "name": "Saving the content of the infographic for movie",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0CjtUE1shaJKjCiI",
+          "name": "Supabase account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Improving query content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Classifier",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Person data from TMDB",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Movie data from TMDB",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update status if the query is SPAM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Filtering movies by popularity",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update status if video not found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Filtering people by popularity",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update status if person not found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Construction of template content for person",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Construction of template content for movie",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Improving query content",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Improving query content": {
+      "main": [
+        [
+          {
+            "node": "Saving initial information to the database",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Saving initial information to the database": {
+      "main": [
+        [
+          {
+            "node": "Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classifier": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Person data from TMDB": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update status if the query is SPAM": {
+      "main": [
+        []
+      ]
+    },
+    "Filtering people by popularity": {
+      "main": [
+        [
+          {
+            "node": "Person data from Wiki",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combining person data": {
+      "main": [
+        [
+          {
+            "node": "Download template data for person",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construction of template content for person": {
+      "main": [
+        [
+          {
+            "node": "Saving the content of the infographic for person",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download template data for person": {
+      "main": [
+        [
+          {
+            "node": "Construction of template content for person",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Movie data from TMDB": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtering movies by popularity": {
+      "main": [
+        [
+          {
+            "node": "Reading movie genres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reading movie genres": {
+      "main": [
+        [
+          {
+            "node": "Movie data from Wik",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Movie data from Wik": {
+      "main": [
+        [
+          {
+            "node": "Combining movie data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Person data from Wiki": {
+      "main": [
+        [
+          {
+            "node": "Combining person data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combining movie data": {
+      "main": [
+        [
+          {
+            "node": "Download template data for movie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download template data for movie": {
+      "main": [
+        [
+          {
+            "node": "Construction of template content for movie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Construction of template content for movie": {
+      "main": [
+        [
+          {
+            "node": "Saving the content of the infographic for movie",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4f2eae67-b991-4076-a637-4af5abe4ac53",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "fd2bcfe9a8eb8afbd802e22f718e56f997c3d6fec977382fcf47b62623d78ea6"
+  },
+  "id": "wWHs6Go5axATiBkc",
+  "tags": []
+}

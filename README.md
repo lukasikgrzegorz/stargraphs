@@ -68,7 +68,7 @@ stargraphs/
 ├── public/                # Static files
 ├── styles/                # Additional styles
 ├── n8n/                   # n8n workflow configuration
-│   └── workflow.js        # JSON workflow configuration file
+│   └── workflow.json      # JSON workflow configuration file
 └── .docs/                 # Project documentation
 ```
 
